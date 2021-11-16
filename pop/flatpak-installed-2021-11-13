@@ -1,0 +1,41 @@
+Android Studio	com.google.AndroidStudio	2020.3.1.25	stable	user
+Mattermost	com.mattermost.Desktop	5.0.1	stable	system
+Mattermost	com.mattermost.Desktop	5.0.1	stable	user
+OBS Studio	com.obsproject.Studio	27.1.3	stable	user
+Soundux	io.github.Soundux	0.2.7	stable	system
+Obsidian	md.obsidian.Obsidian	0.12.19	stable	system
+Freedesktop Platform	org.freedesktop.Platform	20.08.15	20.08	system
+Freedesktop Platform	org.freedesktop.Platform	20.08.15	20.08	user
+Freedesktop Platform	org.freedesktop.Platform	21.08.4	21.08	user
+Mesa	org.freedesktop.Platform.GL.default	21.1.7	20.08	system
+Mesa	org.freedesktop.Platform.GL.default	21.1.7	20.08	user
+Mesa	org.freedesktop.Platform.GL.default	21.2.2	21.08	system
+Mesa	org.freedesktop.Platform.GL.default	21.2.2	21.08	user
+openh264	org.freedesktop.Platform.openh264	2.1.0	2.0	system
+openh264	org.freedesktop.Platform.openh264	2.1.0	2.0	user
+Freedesktop SDK	org.freedesktop.Sdk	20.08.15	20.08	user
+GNU Image Manipulation Program	org.gimp.GIMP	2.10.28	stable	user
+Manual	org.gimp.GIMP.Manual		2.10	user
+GNOME Boxes	org.gnome.Boxes	41.1	stable	system
+GNOME Boxes Osinfo DB	org.gnome.Boxes.Extension.OsinfoDb	20211013	stable	system
+GNOME Application Platform version 40	org.gnome.Platform		40	system
+GNOME Application Platform version 40	org.gnome.Platform		40	user
+GNOME Application Platform version 41	org.gnome.Platform		41	system
+GNOME Application Platform version 41	org.gnome.Platform		41	user
+GNOME Clocks	org.gnome.clocks	40.0	stable	user
+GnuCash	org.gnucash.GnuCash	4.8a+ (Flathub 4.8-1)	stable	user
+Greybird-dark GTK+ Theme	org.gtk.Gtk3theme.Greybird-dark		3.22	system
+Greybird-dark GTK+ Theme	org.gtk.Gtk3theme.Greybird-dark		3.22	user
+Pop Gtk theme	org.gtk.Gtk3theme.Pop-dark		3.22	system
+Pop Gtk theme	org.gtk.Gtk3theme.Pop-dark		3.22	user
+KDE Application Platform	org.kde.Platform		5.15	system
+KDE Application Platform	org.kde.Platform		5.15-21.08	user
+QGnomePlatform	org.kde.PlatformTheme.QGnomePlatform		5.15	system
+QGnomePlatform	org.kde.PlatformTheme.QGnomePlatform		5.15-21.08	user
+QtSNI	org.kde.PlatformTheme.QtSNI		5.15	system
+QtSNI	org.kde.PlatformTheme.QtSNI		5.15-21.08	user
+QGnomePlatform-decoration	org.kde.WaylandDecoration.QGnomePlatform-decoration		5.15	system
+QGnomePlatform-decoration	org.kde.WaylandDecoration.QGnomePlatform-decoration		5.15-21.08	user
+Pingus	org.seul.pingus	0.7.6-543-g25d7f3ffb	stable	user
+VLC	org.videolan.VLC	3.0.16	stable	system
+Tangram	re.sonny.Tangram	1.3.2	stable	user
