@@ -26,13 +26,24 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# golang install location
+# golang
 if [ -d "/usr/local/go/bin" ] ; then
     PATH="$PATH:/usr/local/go/bin"
 fi
 
-# user's go bin
+if [[ $OSTYPE == 'darwin'* ]] && [ -d "/opt/homebrew/bin/go" ] ; then
+    PATH="$PATH:/opt/homebrew/bin/go"
+fi
+
 PATH=$PATH:$(go env GOPATH)/bin
+
+if [[ $OSTYPE == 'darwin'* ]] ; then
+    # Setting PATH for Python 3.9
+    PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
+    export PATH
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
