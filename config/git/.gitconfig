@@ -1,0 +1,58 @@
+[user]
+	name = Zachary Austin
+	email = Zachary@admiralfeb.net
+[alias]
+	stat = status
+	b = branch
+	co = checkout
+	c = commit
+	m = merge
+	ap = add --patch
+	s = status
+	l = log
+	a = add
+	ps = push
+	pl = pull
+	ignore = !sh -c 'echo "$1" >> .gitignore' -
+[core]
+	editor = code --wait
+	excludesfile = ~/.gitignore
+[init]
+	defaultBranch = main
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[diff]
+	tool = bc3
+[merge]
+	tool = bc3
+[mergetool "bc3"]
+	trustExitCode = true
+[url "git@github.com:github"]
+
+	insteadOf = "https://github.com/github"
+	insteadOf = "github:github"
+	insteadOf = "git://github.com/github"
+
+[url "git@github.com:"]
+
+	pushInsteadOf = "https://github.com/"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+
+	insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+
+	insteadOf = "gist:"
