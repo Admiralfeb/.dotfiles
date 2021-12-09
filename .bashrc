@@ -88,7 +88,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 if [[ $OSTYPE == 'darwin'* ]]; then
-    echo 'macOS'
     alias ls='ls -G'
 fi
 
