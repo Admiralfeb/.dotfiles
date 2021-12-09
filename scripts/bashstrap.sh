@@ -19,6 +19,7 @@ USER_FILES_TO_REPLACE=(
     .profile
     .bashrc
     .bash_aliases
+    .bash_functions
 )
 
 for file_to_replace in ${USER_FILES_TO_REPLACE[@]}; do
