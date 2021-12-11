@@ -14,6 +14,9 @@
 	ps = push
 	pl = pull
 	ignore = !sh -c 'echo "$1" >> .gitignore' -
+	sdiff = !git diff && git submodule foreach 'git diff'
+	spush = push --recurse-submodules=on-demand
+	supdate = submodule update --remote --merge
 [core]
 	editor = code --wait
 	excludesfile = ~/.gitignore
@@ -27,6 +30,7 @@
 	trustExitCode = true
 [diff]
 	tool = bc3
+	submodule = log
 [merge]
 	tool = bc3
 [mergetool "bc3"]
@@ -56,3 +60,9 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+[push]
+	recurseSubmodules = on-demand
+[status]
+	submodulesummary = 1
+[submodule]
+	recurse = true
