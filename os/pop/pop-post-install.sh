@@ -16,9 +16,9 @@ SOURCES_KEY_COMMANDS=(
     sudo gpg --no-default-keyring --keyring "$KEYRING_LOCATION/insync-archive-keyring.gpg" --keyserver <hkp://keyserver.ubuntu.com:80> --recv-keys ACCAF35C
     wget -O- https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xaeeb94e9c5a3b54ecfa4a66aa684470caccaf35c | sudo tee "$KEYRING_LOCATION/insync-archive-keyring.gpg"
     wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee "$KEYRING_LOCATION/microsoft-archive-keyring.gpg"
+    wget -O- https://www.mongodb.org/static/pgp/server-5.0.asc | sudo tee "$KEYRING_LOCATION/mongodb-5.0-archive-keyring.asc"
     # scootersoftware - cannot locate their key
     wget -O- https://slack.com/gpg/slack_pubkey_20210901.gpg | sudo tee "$KEYRING_LOCATION/slack-archive-keyring.gpg"
-
 )
 
 SOURCES_NAMES=(
@@ -27,6 +27,7 @@ SOURCES_NAMES=(
     insync
     microsoft-edge
     microsoft-prod
+    mongodb-5.0
     scootersoftware
     slack
     vscode
@@ -38,6 +39,7 @@ SOURCES_LIST=(
     deb [signed-by=/usr/share/keyrings/insync-archive-keyring.gpg] http://apt.insync.io/ubuntu xenial non-free contrib
     deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg arch=amd64] https://packages.microsoft.com/repos/edge/ stable main
     deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/21.04/prod hirsute main
+    deb [signed-by=/usr/share/keyrings/mongodb-5.0-archive-keyring.asc arch=amd64,arm64] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse
     deb https://www.scootersoftware.com/ bcompare4 non-free
     deb [signed-by=/usr/share/keyrings/slack-archive-keyring.gpg] https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
     deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
@@ -63,6 +65,7 @@ PACKAGE_LIST=(
     lutris
     meld
     microsoft-edge-stable
+    mongodb-org
     neofetch
     packages-microsoft-prod
     python3
