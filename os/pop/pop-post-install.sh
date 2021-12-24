@@ -85,6 +85,7 @@ PACKAGE_LIST=(
 )
 
 FLATPACK_LIST=(
+    com.axiosoft.GitKraken
     com.google.AndroidStudio
     com.mattermost.Desktop
     com.obsproject.Studio
