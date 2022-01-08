@@ -12,6 +12,7 @@ KEYRING_LOCATION=/usr/share/keyrings
 
 SOURCES_KEY_COMMANDS=(
     wget -O- https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | sudo tee "$KEYRING_LOCATION/brave-browser-archive-keyring.gpg"
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o "$KEYRING_LOCATION/docker-archive-keyring.gpg"
     wget -O- https://dl.google.com/linux/linux_signing_key.pub | sudo tee "$KEYRING_LOCATION/google-archive-keyring.pub"
     sudo gpg --no-default-keyring --keyring "$KEYRING_LOCATION/insync-archive-keyring.gpg" --keyserver <hkp://keyserver.ubuntu.com:80> --recv-keys ACCAF35C
     wget -O- https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xaeeb94e9c5a3b54ecfa4a66aa684470caccaf35c | sudo tee "$KEYRING_LOCATION/insync-archive-keyring.gpg"
@@ -23,6 +24,7 @@ SOURCES_KEY_COMMANDS=(
 
 SOURCES_NAMES=(
     brave-browser-release
+    docker
     google-chrome
     insync
     microsoft-edge
@@ -35,6 +37,7 @@ SOURCES_NAMES=(
 
 SOURCES_LIST=(
     deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
+    deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
     deb [signed-by=/usr/share/keyrings/google-archive-keyring.pub arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
     deb [signed-by=/usr/share/keyrings/insync-archive-keyring.gpg] http://apt.insync.io/ubuntu xenial non-free contrib
     deb [signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg arch=amd64] https://packages.microsoft.com/repos/edge/ stable main
@@ -54,6 +57,9 @@ PACKAGE_LIST=(
     com.github.tkashkin.gamehub
     curl
     discord
+    docker-ce
+    docker-ce-cli
+    containerd.io
     dotnet-sdk-6.0
     fontforge
     fonts-firacode
