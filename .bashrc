@@ -121,9 +121,3 @@ fi
 if [ -f "$HOME/.cargo.env" ]; then
     . "$HOME/.cargo/env"
 fi
-
-if [[ $OSTYPE != 'darwin'* ]] ; then
-    export DOCKER_HOST=unix:///run/user/1000/docker.sock
-fi
-
-export PATH=/usr/bin:$PATH
