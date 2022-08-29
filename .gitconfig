@@ -1,6 +1,6 @@
 [user]
-	name = Zachary Austin
-	email = Zachary@admiralfeb.net
+	name = Austin Deseo
+	email = Austin@admiralfeb.dev
 [alias]
 	stat = status
 	b = branch
@@ -20,6 +20,7 @@
 [core]
 	editor = code --wait
 	excludesfile = ~/.gitignore
+	autocrlf = input
 [init]
 	defaultBranch = main
 [difftool "sourcetree"]
