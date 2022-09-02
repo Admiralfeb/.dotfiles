@@ -1,0 +1,7 @@
+X-Repolib-Name: Microsoft Dotnet dev
+Enabled: yes
+Types: deb
+URIs: https://packages.microsoft.com/repos/microsoft-ubuntu-jammy-prod
+Suites: jammy
+Components: main
+Architectures: amd64

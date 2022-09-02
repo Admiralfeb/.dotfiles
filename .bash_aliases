@@ -9,3 +9,5 @@ alias nala-update='sudo nala update; nala list --upgradable'
 alias nala-upgrade='sudo nala upgrade'
 alias settings='gnome-control-center'
 alias extract='tar -xvzf'
+
+alias list-apps='get_apt_packages && get_flatpak_packages && get_snap_packages'

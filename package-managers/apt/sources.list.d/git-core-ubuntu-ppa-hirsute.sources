@@ -1,0 +1,5 @@
+Enabled: yes
+Types: deb deb-src
+URIs: http://ppa.launchpad.net/git-core/ppa/ubuntu/
+Suites: jammy
+Components: main

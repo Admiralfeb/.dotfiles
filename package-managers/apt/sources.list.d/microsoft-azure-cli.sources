@@ -1,0 +1,7 @@
+X-Repolib-Name: Microsoft Azure Cli
+Enabled: yes
+Types: deb
+URIs: https://packages.microsoft.com/repos/azure-cli/
+Suites: bionic
+Components: main
+Architectures: amd64

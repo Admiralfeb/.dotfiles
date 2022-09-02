@@ -1,0 +1,6 @@
+X-Repolib-Name: Scooter Software - Beyond Compare
+Enabled: yes
+Types: deb
+URIs: https://www.scootersoftware.com/
+Suites: bcompare4
+Components: non-free

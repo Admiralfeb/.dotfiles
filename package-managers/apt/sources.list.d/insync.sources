@@ -1,0 +1,6 @@
+X-Repolib-Name: Insync
+Enabled: yes
+Types: deb
+URIs: http://apt.insync.io/ubuntu
+Suites: xenial
+Components: non-free contrib

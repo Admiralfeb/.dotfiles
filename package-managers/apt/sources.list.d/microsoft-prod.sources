@@ -1,0 +1,7 @@
+X-Repolib-Name: Microsoft Prod
+Enabled: yes
+Types: deb
+URIs: https://packages.microsoft.com/ubuntu/22.04/prod
+Suites: jammy
+Components: main
+Architectures: amd64,arm64,armhf

@@ -1,0 +1,10 @@
+# Sources file built for nala
+
+deb http://mirror.genesisadaptive.com/ubuntu/ jammy main restricted universe multiverse
+
+deb http://pubmirrors.dal.corespace.com/ubuntu/ jammy main restricted universe multiverse
+
+deb http://archive.ubuntu.mirror.rafal.ca/ubuntu/ jammy main restricted universe multiverse
+
+deb http://mirror.us-tx.kamatera.com/ubuntu/ jammy main restricted universe multiverse
+

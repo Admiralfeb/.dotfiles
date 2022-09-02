@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-function parse_git_branch {
+parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-function get_current_git_branch {
+get_current_git_branch() {
 	if [ -n $(parse_git_branch) ]; then
 		local retval=' ($(parse_git_branch))'
 		echo "$retval"
@@ -12,4 +12,20 @@ function get_current_git_branch {
 		local retval=''
 		echo "$retval"
 	fi
+}
+
+get_installed_apps() {
+
+}
+
+get_apt_packages() {
+    apt list --installed
+}
+
+get_flatpak_packages() {
+    flatpak list
+}
+
+get_snap_packages() {
+    snap list
 }
