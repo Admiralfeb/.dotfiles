@@ -21,6 +21,6 @@ ENV HOME /home/tester
 WORKDIR /home/tester/projects/dotfiles
 
 # Run setup
-RUN ./os/install.sh
+RUN ./os/pop/install.sh
 
 CMD ["/bin/bash"]
