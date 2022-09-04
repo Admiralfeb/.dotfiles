@@ -1,8 +1,12 @@
 FROM ubuntu:22.04
+ARG DEBIAN_FRONTEND=noninteractive
 
 # OS updates and install
 RUN apt-get -qq update
 RUN apt-get install git sudo -qq -y
+
+ENV TZ=America/Chicago
+RUN apt-get install -y tzdata
 
 # Create test user and add to sudoers
 RUN useradd -m -s /bin/bash tester

@@ -23,7 +23,7 @@ for package_name in ${PACKAGE_LIST[@]}; do
 	if ! sudo apt list --installed | grep -q "^\<$package_name\>"; then
 		echo "installing $package_name..."
 		sleep .5
-		sudo apt install "$package_name" -y
+		sudo apt -qq install "$package_name" -y
 		echo "$package_name installed"
 	else
 		echo "$package_name already installed"
