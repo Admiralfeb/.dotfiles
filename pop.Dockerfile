@@ -21,7 +21,8 @@ ENV HOME /home/tester
 WORKDIR /home/tester/projects/dotfiles
 
 # Run setup
-RUN chmod +x ./os/pop/install.sh
-RUN ./os/pop/install.sh
+WORKDIR /home/tester/projects/dotfiles/os/pop
+RUN chmod +x ./install.sh
+RUN ./install.sh
 
 CMD ["/bin/bash"]
