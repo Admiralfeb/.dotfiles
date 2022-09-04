@@ -15,7 +15,7 @@ get_current_git_branch() {
 }
 
 get_installed_apps() {
-
+	echo "get installed apps"
 }
 
 get_apt_packages() {

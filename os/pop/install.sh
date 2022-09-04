@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+echo "info: Strapping bash"
+
 chmod +x ../../scripts/bashstrap.sh
 ../../scripts/bashstrap.sh
+
+echo "info: configuring sources"
 
 chmod +x ./config-sources.sh
 
@@ -11,6 +15,8 @@ sudo apt install software-properties-common curl wget
 . ./config-sources.sh
 
 sudo apt update
+
+echo "info: add apt packages"
 
 # iterate through packages and installs them if not already installed
 for package_name in ${PACKAGE_LIST[@]}; do
@@ -24,6 +30,8 @@ for package_name in ${PACKAGE_LIST[@]}; do
 	fi
 done
 
+echo "info: add flatpak packages"
+
 sudo apt install flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -35,11 +43,16 @@ for flatpak_name in ${FLATPAK_LIST[@]}; do
 	fi
 done
 
+echo "info: add snap packages"
+
 for snap_name in ${SNAP_CLASSIC_LIST[@]}; do
     if ! snap list | grep -q $snap_name; then
         sudo snap install "$snap_name" --classic
     else
         echo "$snap_name already installed"
+done
+
+echo "info: add other packages"
 
 source ../../installers/gitkraken.sh
 source ../../installers/golang.sh
