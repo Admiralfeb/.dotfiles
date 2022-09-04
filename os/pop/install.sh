@@ -3,12 +3,12 @@
 chmod +x ../../scripts/bashstrap.sh
 ../../scripts/bashstrap.sh
 
-chmod +x config-sources.sh
+chmod +x ./config-sources.sh
 
 sudo apt update
 sudo apt install software-properties-common curl wget
 
-. config-sources.sh
+. ./config-sources.sh
 
 sudo apt update
 
