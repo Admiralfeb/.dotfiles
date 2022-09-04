@@ -1,4 +1,4 @@
 ubuntu-test-job:
   stage: test
   script:
-    - docker build os/pop
+    - docker build -f pop.Dockerfile .
