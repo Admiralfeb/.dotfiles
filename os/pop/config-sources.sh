@@ -2,6 +2,10 @@
 
 source ../../extras/functions.sh
 
+command -v wget >/dev/null 2>&1 || { echo >&2 "wget not installed.  Aborting."; exit 1; }
+command -v curl >/dev/null 2>&1 || { echo >&2 "curl not installed.  Aborting."; exit 1; }
+command -v gpg >/dev/null 2>&1 || { echo >&2 "gpg not installed.  Aborting."; exit 1; }
+
 # This script is meant to configure the sources used.
 
 KEYRING_LOCATION=/usr/share/keyrings
@@ -21,7 +25,6 @@ sudo cp -r ../../package-managers/apt/sources.list.d /etc/apt/sources.list.d
 
 
 PACKAGE_LIST=(
-    apt
     bcompare
     brave-browser
     code
@@ -32,7 +35,7 @@ PACKAGE_LIST=(
     docker-ce
     docker-ce-cli
     containerd.io
-    dotnet-sdk-6.0
+    dotnet6
     fontforge
     fonts-firacode
     gnome-boxes

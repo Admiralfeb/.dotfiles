@@ -1,12 +1,12 @@
 FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Chicago
 
 # OS updates and install
-RUN apt-get -qq update
-RUN apt-get install git sudo -qq -y
+RUN apt-get update -qq
+RUN apt-get install -qq git sudo wget curl
 
-ENV TZ=America/Chicago
-RUN apt-get install -y tzdata
+RUN apt-get install -qq tzdata
 
 # Create test user and add to sudoers
 RUN useradd -m -s /bin/bash tester
