@@ -1,6 +1,0 @@
-Enabled: yes
-Types: deb deb-src
-URIs: http://ppa.launchpad.net/flexiondotorg/mangohud/ubuntu/
-Suites: jammy
-Components: main
-

@@ -19,12 +19,17 @@ echo "info: add apt packages"
 
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 
+sudo apt-get install dotnet6
+
+
+
+
 # iterate through packages and installs them if not already installed
 for package_name in ${PACKAGE_LIST[@]}; do
 	if ! sudo nala list --installed | grep -q "^\<$package_name\>"; then
 		echo "installing $package_name..."
 		sleep .5
-		if sudo nala install -qq "$package_name" | grep -iqF "Unable to locate"; then
+		if sudo nala install "$package_name" | grep -iqF "Unable to locate"; then
 			echo "package $package_name not found. aborting"
 			exit 1
 		fi
@@ -36,7 +41,7 @@ done
 
 echo "info: add flatpak packages"
 
-sudo nala install -qq flatpak -y
+sudo nala install flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 for flatpak_name in ${FLATPAK_LIST[@]}; do
