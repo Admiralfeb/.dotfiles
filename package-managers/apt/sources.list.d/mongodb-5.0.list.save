@@ -1,1 +1,0 @@
-# deb [signed-by=/usr/share/keyrings/mongodb-5.0-archive-keyring.asc arch=amd64,arm64] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/5.0 multiverse

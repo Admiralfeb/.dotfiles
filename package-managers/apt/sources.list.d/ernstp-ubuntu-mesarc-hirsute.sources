@@ -1,5 +1,0 @@
-Enabled: yes
-Types: deb deb-src
-URIs: http://ppa.launchpad.net/ernstp/mesarc/ubuntu/
-Suites: jammy
-Components: main

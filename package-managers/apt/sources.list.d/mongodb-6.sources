@@ -2,8 +2,7 @@ X-Repolib-Name: MongoDb
 Enabled: yes
 Types: deb
 URIs: https://repo.mongodb.org/apt/ubuntu
-Suites: jammy/mongodb-org/5.0
+Suites: focal/mongodb-org/6.0
 Components: multiverse
 Architectures: amd64,arm64
-Signed-By: /usr/share/keyrings/mongodb-5.0-archive-keyring.asc
-
+Signed-By: /etc/apt/keyrings/mongodb-6.gpg
