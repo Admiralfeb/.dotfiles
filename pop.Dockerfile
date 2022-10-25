@@ -27,6 +27,6 @@ WORKDIR /home/tester/projects/dotfiles
 # Run setup
 WORKDIR /home/tester/projects/dotfiles/os/pop
 RUN chmod +x ./install.sh
-RUN ./install.sh
+# RUN ./install.sh
 
 CMD ["/bin/bash"]
