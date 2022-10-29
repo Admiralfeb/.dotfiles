@@ -35,8 +35,6 @@ if [[ $OSTYPE == 'darwin'* ]] && [ -d "/opt/homebrew/bin/go" ] ; then
     PATH="$PATH:/opt/homebrew/bin/go"
 fi
 
-PATH=$PATH:$(go env GOPATH)/bin
-
 if [[ $OSTYPE == 'darwin'* ]] ; then
     # Setting PATH for Python 3.9
     PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
@@ -51,6 +49,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Rust
-if [ -f "$HOME/.cargo.env" ]; then
+if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi

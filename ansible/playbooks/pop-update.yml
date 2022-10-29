@@ -1,0 +1,17 @@
+- name: PopOS Update
+  hosts: localhost
+  remote_user: admiralfeb
+  become: true
+
+  tasks:
+    # apt update/upgrade
+    - name: Apt
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+    # flatpak update/upgrade
+    - name: Flatpak # noqa command-instead-of-shell
+      ansible.builtin.shell:
+        cmd: flatpak update --noninteractive
+      register: flatpak_output
+      changed_when: flatpak_output.rc == 2

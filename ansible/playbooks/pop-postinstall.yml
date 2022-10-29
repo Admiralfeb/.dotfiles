@@ -1,0 +1,20 @@
+- name: PopOS PostInstall
+  host: localhost
+
+  tasks:
+    # Install Initial Dependencies for the machine
+    - name: Setup Initial Dependencies
+      ansible.builtin.apt:
+        pkg:
+          - wget
+          - curl
+    # Setup Source keys in /etc/apt/trusted.gpg.d
+    # Setup sources.list.d
+    # Install apt list
+    # Install/setup flatpak
+    # Install flatpak list
+    # Install/setup snapd
+    # Install snap list
+    # Download extra appImages
+    # Download/install extra deb packages
+    # Load profile files via stow
