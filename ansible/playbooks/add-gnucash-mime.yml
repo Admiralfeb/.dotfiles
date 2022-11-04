@@ -1,0 +1,29 @@
+- name: Add mime type for gnucash
+  hosts: localhost
+  become: true
+  vars:
+    mime_filename: /usr/share/mime/packages/gnucash.xml
+
+  tasks:
+    - name: Check if mime file exists
+      ansible.builtin.stat:
+        path: "{{ mime_filename }}"
+      register: file_register
+    - name: Create file if not exists # noqa avoid-implicit
+      when: not file_register.stat.exists
+      ansible.builtin.copy:
+        dest: "{{ mime_filename }}"
+        group: root
+        owner: root
+        mode: u=rw,g=r,o=r
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+            <mime-type type="application/x-gnucash">
+              <glob pattern="*.gnucash"/>
+            </mime-type>
+          </mime-info>
+
+    - name: Update Mime db # noqa no-changed-when
+      ansible.builtin.command:
+        cmd: sudo update-mime-database /usr/share/mime
