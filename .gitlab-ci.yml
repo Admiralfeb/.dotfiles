@@ -1,8 +1,0 @@
-ubuntu-test-job:
-  stage: test
-  script:
-    - docker build --no-cache --progress=plain -f pop.Dockerfile . 2>&1 | tee build.log
-  artifacts:
-    paths:
-      - build.log
-    expire_in: 1 week
