@@ -1,0 +1,20 @@
+---
+- name: Update Apt and Flatpak (if applicable)
+  hosts: Debian_Based
+  remote_user: admiralfeb
+
+  tasks:
+    - name: Apt
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+      become: true
+    - name: Gather installed packages
+      ansible.builtin.package_facts:
+        manager: apt
+    - name: Flatpak # noqa command-instead-of-shell
+      ansible.builtin.shell:
+        cmd: flatpak update --noninteractive
+      register: flatpak_output
+      changed_when: flatpak_output.stdout != "Nothing to do."
+      when: "'flatpak' in ansible_facts.packages"
