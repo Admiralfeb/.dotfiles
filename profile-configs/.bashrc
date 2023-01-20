@@ -118,6 +118,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+complete -f -F _dotnet_bash_complete dotnet
+complete -F _fnm -o bashdefault -o default fnm
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -127,3 +130,7 @@ export NVM_DIR="$HOME/.nvm"
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
+
+# fnm
+export PATH="/home/admiralfeb/.local/share/fnm:$PATH"
+eval "`fnm env`"
