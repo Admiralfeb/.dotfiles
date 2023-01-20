@@ -31,6 +31,10 @@ if [ -d "/usr/local/go/bin" ] ; then
     PATH="$PATH:/usr/local/go/bin"
 fi
 
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ] ; then
+    Path="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
+fi
+
 if [[ $OSTYPE == 'darwin'* ]] && [ -d "/opt/homebrew/bin/go" ] ; then
     PATH="$PATH:/opt/homebrew/bin/go"
 fi
