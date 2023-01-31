@@ -298,7 +298,15 @@ let light_theme = {
 
 def nala-update [] {
   ^sudo nala update
-  # ^nala list --upgradable
+  ^nala list --upgradable
+}
+
+def nala-upgrade [--yes (-y)] {
+  if $yes {
+    ^sudo nala upgrade -y
+  } else {
+    ^sudo nala upgrade
+  }
 }
 
 # The default config record. This is where much of your global configuration is setup.
