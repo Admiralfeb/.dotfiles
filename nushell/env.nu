@@ -56,8 +56,11 @@ let-env NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
+source /home/admiralfeb/.config/nushell/path.nu
+
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # let-env PATH = ($env.PATH | prepend '/some/path')
+
 
 # let-env PATH = '/home/admiralfeb/.cargo/bin:/home/admiralfeb/.nvm/versions/node/v16.13.0/bin:/home/admiralfeb/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/admiralfeb/.dotnet/tools:/usr/local/go/bin'
 # let-env PATH = ($env.PATH | prepend "/home/admiralfeb/.fnm")

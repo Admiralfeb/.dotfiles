@@ -23,6 +23,12 @@ if ($jetbrainsToolbox | path exists) {
     let-env PATH = ($env.PATH | split row (char esep) | append $jetbrainsToolbox)
 }
 
+# Rust
+let cargoPath = ([$env.HOME '.cargo' 'bin'] | path join)
+if ($cargoPath | path exists) {
+    let-env PATH = ($env.PATH | split row (char esep) | append $cargoPath)
+}
+
 # fnm - fast node manager
 let fnm = ([$env.HOME '.local' 'share' 'fnm'] | path join)
 if ($fnm | path exists) {
