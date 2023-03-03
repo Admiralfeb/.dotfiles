@@ -30,7 +30,18 @@ if ($cargoPath | path exists) {
 }
 
 # fnm - fast node manager
-let fnm = ([$env.HOME '.local' 'share' 'fnm'] | path join)
-if ($fnm | path exists) {
-    let-env PATH = ($env.PATH | split row (char esep) | append $fnm)
+# let fnm = ([$env.HOME '.local' 'share' 'fnm'] | path join)
+# if ($fnm | path exists) {
+#     let-env PATH = ($env.PATH | split row (char esep) | append $fnm)
+#     load-fnm
+# }
+let fnm2 = ([$env.HOME '.cargo' 'bin' 'fnm'] | path join)
+if ($fnm2 | path exists) {
+    let-env PATH = ($env.PATH | split row (char esep) | append $fnm2)
+    load-fnm
+}
+
+def-env load-fnm [] {
+    load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
+    let-env PATH = ($env.PATH | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
 }
