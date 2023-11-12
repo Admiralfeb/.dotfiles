@@ -309,6 +309,9 @@ def nala-upgrade [--yes (-y)] {
   }
 }
 
+alias lss = (ls | sort-by name -i)
+alias lsa = (ls -al | sort-by name -i)
+
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
   ls: {
