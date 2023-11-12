@@ -18,7 +18,7 @@
 	spush = push --recurse-submodules=on-demand
 	supdate = submodule update --remote --merge
 [core]
-	editor = code --wait
+	editor = vim
 	excludesfile = ~/.gitignore
 	autocrlf = input
 [init]

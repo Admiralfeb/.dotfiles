@@ -131,6 +131,13 @@ if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
 
+export FLYCTL_INSTALL="/home/admiralfeb/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+# fnm
+export PATH="/home/admiralfeb/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
 # fnm
 export PATH="/home/admiralfeb/.local/share/fnm:$PATH"
 eval "`fnm env`"
