@@ -69,3 +69,5 @@
 	recurse = true
 [pull]
 	rebase = false
+[safe]
+	directory = /opt/edmc
