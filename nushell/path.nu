@@ -32,5 +32,5 @@ if ($cargoPath | path exists) {
 # Fly.io
 let flyIo = ([$env.HOME '.fly' 'bin'] | path join)
 if ($flyIo | path exists) {
-    let-env PATH = ($env.PATH | split row (char esep) | append $flyIo)
+    $env.PATH = ($env.PATH | split row (char esep) | append $flyIo)
 }
