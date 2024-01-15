@@ -296,22 +296,6 @@ let light_theme = {
 #     carapace $spans.0 nushell $spans | from json
 # }
 
-def nala-update [] {
-  ^sudo nala update
-  ^nala list --upgradable
-}
-
-def nala-upgrade [--yes (-y)] {
-  if $yes {
-    ^sudo nala upgrade -y
-  } else {
-    ^sudo nala upgrade
-  }
-}
-
-# alias lss = (ls | sort-by name -i)
-# alias lsa = (ls -al | sort-by name -i)
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
   ls: {

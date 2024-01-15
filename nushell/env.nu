@@ -1,12 +1,13 @@
 # Nushell Environment Config File
 
 def create_left_prompt [] {
-    let path_segment = ($env.PWD | str replace '/home/admiralfeb' '~')
+    let path_segment = ($env.PWD | str replace $env.HOME '~')
     let user = ($env.USER)
-    let computerName = (hostname | str trim)
+    let computerName = (hostname | str trim | str replace '.local' '')
 
     $"($user)@($computerName):($path_segment)"
 }
+
 
 def create_right_prompt [] {
     let time_segment = ([
@@ -56,7 +57,22 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
-source /home/admiralfeb/.config/nushell/path.nu
+const WINDOWS_PATH_FILE = ~/.dotfiles/nushell/path.nu
+const UNIX_SOURCE_FILE = ~/.dotfiles/nushell/sourced-unix.nu
+
+const PATH_FILE = if $nu.os-info.name == "windows" {
+  $WINDOWS_PATH_FILE
+} else {
+  $UNIX_SOURCE_FILE
+}
+
+source $PATH_FILE
+
+if $nu.os-info.name == "macos" {
+  addMacPaths
+} else {
+  addLinuxPaths
+}
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | prepend '/some/path')
