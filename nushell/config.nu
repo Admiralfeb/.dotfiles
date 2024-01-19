@@ -641,3 +641,7 @@ $env.config = {
     }
   ]
 }
+
+if (['~' '.cargo' 'bin' 'starship'] | path join | path exists) and (['~' '.dotfiles' 'nushell' 'starship.nu'] | path join | path exists) {
+  use ~/.dotfiles/nushell/starship.nu
+}
