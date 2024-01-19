@@ -57,6 +57,8 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
+$env.CMD_DURATION_MS = 100
+
 const WINDOWS_PATH_FILE = ~/.dotfiles/nushell/path.nu
 const UNIX_SOURCE_FILE = ~/.dotfiles/nushell/sourced-unix.nu
 
@@ -70,8 +72,10 @@ source $PATH_FILE
 
 if $nu.os-info.name == "macos" {
   addMacPaths
+  # addCommonPaths
 } else {
   addLinuxPaths
+  # addCommonPaths
 }
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
