@@ -1,11 +1,19 @@
 # Nushell Environment Config File
 
 def create_left_prompt [] {
+  if $nu.os-info.name == 'windows' {
+    let path_segment = ($env.PWD | str replace $nu.home-path '~')
+    let user = ($env.USERNAME)
+    let computerName = (hostname | str trim | str replace '.local' '')
+
+    $"($user)@($computerName) : ($path_segment)"
+  } else {
     let path_segment = ($env.PWD | str replace $env.HOME '~')
     let user = ($env.USER)
     let computerName = (hostname | str trim | str replace '.local' '')
 
     $"($user)@($computerName):($path_segment)"
+  }
 }
 
 
@@ -57,7 +65,7 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
-const WINDOWS_PATH_FILE = ~/.dotfiles/nushell/path.nu
+const WINDOWS_PATH_FILE = ~/.dotfiles/nushell/sourced-unix.nu
 const UNIX_SOURCE_FILE = ~/.dotfiles/nushell/sourced-unix.nu
 
 const PATH_FILE = if $nu.os-info.name == "windows" {
@@ -68,8 +76,15 @@ const PATH_FILE = if $nu.os-info.name == "windows" {
 
 source $PATH_FILE
 
-if $nu.os-info.name == "macos" {
+let os_name = $nu.os-info.name
+if $os_name == "macos" {
   addMacPaths
+} else if $os_name == "windows" {
+  load-env (fnm env --shell power-shell | lines | str replace '$env:' '' | str replace -a '"' '' | where ($it | str contains '=') | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert ($it.name | str trim) ($it.value | str trim) })
+  $env.Path = ($env.Path | append ([$env.FNM_MULTISHELL_PATH 'bin'] | path join))
+
+
+  addWindowsPaths
 } else {
   addLinuxPaths
 }

@@ -48,7 +48,7 @@ export def addWindowsPaths []: nothing -> nothing {
   # nothing here yet
 }
 
-def addCommonPaths []: nothing -> nothing {
+def --env addCommonPaths []: nothing -> nothing {
   # fnm
   let fnm_path = ([$env.HOME '.fnm'] | path join)
   if ($fnm_path | path exists) {
