@@ -642,6 +642,8 @@ $env.config = {
   ]
 }
 
+$env.STARSHIP_CONFIG = (['~' '.dotfiles' 'nushell' 'starship.toml'] | path join)
+
 if ((['~' '.cargo' 'bin' 'starship'] | path join | path exists) or (
      ['~' '.cargo' 'bin' 'starship.exe'] | path join | path exists)) and (
      ['~' '.dotfiles' 'nushell' 'starship.nu'] | path join | path exists) {
