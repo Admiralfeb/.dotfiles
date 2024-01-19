@@ -56,7 +56,21 @@ export def --env addMacPaths []: nothing -> nothing {
 }
 
 export def --env addWindowsPaths []: nothing -> nothing {
-  # nothing here yet
+  # fnm
+  # load-env (fnm env --version-file-strategy=recursive --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | where ($it | str contains '=') | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
+  # $env.Path = ($env.Path | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
+  # let fnm_path = ([$nu.home-path '.fnm'] | path join)
+  # if ($fnm_path | path exists) {
+  #   $env.Path = ($env.Path | split row (char esep) | append $fnm_path)
+  # }
+
+  $env.Path = ($env.Path | append ([$env.FNM_DIR 'node-versions' 'v20.11.0' 'installation'] | path join))
+
+  # Rust
+  let cargoPath = ([$nu.home-path '.cargo' 'bin'] | path join)
+  if ($cargoPath | path exists) {
+    $env.Path = ($env.Path | split row (char esep) | append $cargoPath)
+  }
 }
 
 def --env addCommonPaths []: nothing -> nothing {
