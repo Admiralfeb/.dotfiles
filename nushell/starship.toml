@@ -1,0 +1,2 @@
+[nodejs]
+detect_extensions = ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts', 'jsx', 'tsx']

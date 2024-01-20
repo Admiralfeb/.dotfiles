@@ -120,24 +120,3 @@ fi
 
 complete -f -F _dotnet_bash_complete dotnet
 complete -F _fnm -o bashdefault -o default fnm
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Rust
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi
-
-export FLYCTL_INSTALL="/home/admiralfeb/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
-
-# fnm
-export PATH="/home/admiralfeb/.local/share/fnm:$PATH"
-eval "`fnm env`"
-
-# fnm
-export PATH="/home/admiralfeb/.local/share/fnm:$PATH"
-eval "`fnm env`"

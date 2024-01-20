@@ -25,24 +25,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-
-# golang
-if [ -d "/usr/local/go/bin" ] ; then
-    PATH="$PATH:/usr/local/go/bin"
-fi
-
-if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ] ; then
-    Path="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
-fi
-
-if [[ $OSTYPE == 'darwin'* ]] && [ -d "/opt/homebrew/bin/go" ] ; then
-    PATH="$PATH:/opt/homebrew/bin/go"
-fi
-
-if [[ $OSTYPE == 'darwin'* ]] ; then
-    # Setting PATH for Python 3.9
-    PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
-    export PATH
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi

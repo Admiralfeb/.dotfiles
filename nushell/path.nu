@@ -1,84 +1,88 @@
 #!/usr/bin/env nu
 
+use std log
+
+def --env addToPath [path: string]: nothing -> nothing {
+  if ($path | path exists) == false {
+    log info $"($path) does not exist. Not adding."
+    return
+  }
+
+  if (isWindows) {
+    if ($path not-in $env.Path) {
+      log info $"($path) path being added for Windows"
+      $env.Path = ($env.Path | split row (char esep) | append $path)
+    }
+  } else if ($path not-in $env.PATH) {
+    log info $"($path) path being added for mac/linux"
+    $env.PATH = ($env.PATH | split row (char esep) | append $path)
+  }
+}
+
+def --env prependToPath [path: string]: nothing -> nothing {
+  if ($path | path exists) == false {
+    log info $"($path) does not exist. Not adding."
+    return
+  }
+
+  if (isWindows) {
+    if ($path not-in $env.Path) {
+      log info $"($path) path being added for Windows"
+      $env.Path = ($env.Path | split row (char esep) | prepend $path)
+    }
+  } else if ($path not-in $env.PATH) {
+    log info $"($path) path being added for mac/linux"
+    $env.PATH = ($env.PATH | split row (char esep) | prepend $path)
+  }
+}
+
 export def --env addLinuxPaths []: nothing -> nothing {
   addCommonPaths
 
   # golang
-  let golang = 'usr/local/go/bin'
-  if ($golang | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $golang)
-  }
+  addToPath (['/usr' 'local' 'go' 'bin'] | path join)
 
   # jetbrains
-  let jetbrainsToolbox = ([$env.HOME '.local' 'share' 'JetBrains' 'Toolbox' 'scripts'] | path join)
-  if ($jetbrainsToolbox | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $jetbrainsToolbox)
-  }
+  addToPath ([$nu.home-path '.local' 'share' 'JetBrains' 'Toolbox' 'scripts'] | path join)
 
   # Fly.io
-  let flyIo = ([$env.HOME '.fly' 'bin'] | path join)
-  if ($flyIo | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $flyIo)
-  }
+  addToPath ([$nu.home-path '.fly' 'bin'] | path join)
 }
 
 export def --env addMacPaths []: nothing -> nothing {
   addCommonPaths
 
-  let jetbrainsToolbox = ([$env.HOME 'Library' 'Application Support' 'JetBrains' 'Toolbox' 'scripts'] | path join)
-  if ($jetbrainsToolbox | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $jetbrainsToolbox)
-  }
+  # Jetbrains
+  addToPath ([$nu.home-path 'Library' 'Application Support' 'JetBrains' 'Toolbox' 'scripts'] | path join)
 
-  let vscode = (['/Applications' 'Visual Studio Code.app' 'Contents' 'Resources' 'app' 'bin'] | path join)
-  if ($vscode | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $vscode)
-  }
+  # VS Code for Mac
+  addToPath (['/Applications' 'Visual Studio Code.app' 'Contents' 'Resources' 'app' 'bin'] | path join)
 
-  let homebrew = (['/opt' 'homebrew' 'bin'] | path join)
-  if ($homebrew | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $homebrew)
-  }
+  # homebrew
+  addToPath (['/opt' 'homebrew' 'bin'] | path join)
 }
 
 export def --env addWindowsPaths []: nothing -> nothing {
-  # fnm
-  # load-env (fnm env --version-file-strategy=recursive --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | where ($it | str contains '=') | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
-  # $env.Path = ($env.Path | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
-  # let fnm_path = ([$nu.home-path '.fnm'] | path join)
-  # if ($fnm_path | path exists) {
-  #   $env.Path = ($env.Path | split row (char esep) | append $fnm_path)
-  # }
+  addCommonPaths
 
-  $env.Path = ($env.Path | append ([$env.FNM_DIR 'node-versions' 'v20.11.0' 'installation'] | path join))
-
-  # Rust
-  let cargoPath = ([$nu.home-path '.cargo' 'bin'] | path join)
-  if ($cargoPath | path exists) {
-    $env.Path = ($env.Path | split row (char esep) | append $cargoPath)
-  }
+  addToPath ([$env.FNM_DIR 'node-versions' 'v20.11.0' 'installation'] | path join)
 }
 
 def --env addCommonPaths []: nothing -> nothing {
   # Users private bins
-  let homeBin = ([$env.HOME 'bin'] | path join)
-  if ($homeBin | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $homeBin)
-  }
+  addToPath ([$nu.home-path 'bin'] | path join)
 
-  let localBin = ([$env.HOME '.local' 'bin'] | path join)
-  if ($localBin | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $localBin)
-  }
+  addToPath ([$nu.home-path '.local' 'bin'] | path join)
 
-  let cargoPath = ([$env.HOME '.cargo' 'bin'] | path join)
-  if ($cargoPath | path exists) {
-    $env.PATH = ($env.PATH | split row (char esep) | append $cargoPath)
-  }
+  addToPath ([$nu.home-path '.dotnet' 'tools'] | path join)
+
+  let cargoPath = ([$nu.home-path '.cargo' 'bin'] | path join)
+  prependToPath $cargoPath
 
   # fnm
   if ([$cargoPath 'fnm'] | path join | path exists) {
-    load-env (fnm env --use-on-cd --version-file-strategy=recursive --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
-    $env.PATH = ($env.PATH | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
+    load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
+    # $env.PATH = ($env.PATH | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
+    addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
   }
 }

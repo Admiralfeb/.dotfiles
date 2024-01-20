@@ -410,11 +410,22 @@ $env.config = {
     # pre_execution: [{
     #   $nothing  # replace with source code to run before the repl input is run
     # }]
-    # env_change: {
-    #   PWD: [{|before, after|
-    #     $nothing  # replace with source code to run if the PWD environment is different since the last repl input
-    #   }]
-    # }
+    env_change: {
+      PWD: [
+        {
+          condition: {|_, after|
+            (((which fnm | length) > 0) and
+            (($after | path join .node-version | path exists)
+              or ($after | path join .nvmrc | path exists))
+            )
+          },
+          code: {|_,_| fnm use }
+        }
+      ]
+      # PWD: [{|before, after|
+      #   $nothing  # replace with source code to run if the PWD environment is different since the last repl input
+      # }]
+    }
     display_output: {
       if (term size).columns >= 100 { table -e } else { table }
     }
@@ -642,10 +653,10 @@ $env.config = {
   ]
 }
 
-$env.STARSHIP_CONFIG = (['~' '.dotfiles' 'nushell' 'starship.toml'] | path join)
+$env.STARSHIP_CONFIG = ([$nu.home-path '.dotfiles' 'nushell' 'starship.toml'] | path join)
 
-if ((['~' '.cargo' 'bin' 'starship'] | path join | path exists) or (
-     ['~' '.cargo' 'bin' 'starship.exe'] | path join | path exists)) and (
-     ['~' '.dotfiles' 'nushell' 'starship.nu'] | path join | path exists) {
+if (([$nu.home-path '.cargo' 'bin' 'starship'] | path join | path exists) or (
+     [$nu.home-path '.cargo' 'bin' 'starship.exe'] | path join | path exists)) and (
+     [$nu.home-path '.dotfiles' 'nushell' 'starship.nu'] | path join | path exists) {
   use ~/.dotfiles/nushell/starship.nu
 }
