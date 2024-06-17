@@ -37,6 +37,7 @@ def --env prependToPath [path: string]: nothing -> nothing {
 }
 
 export def --env addLinuxPaths []: nothing -> nothing {
+  addUnixPaths
   addCommonPaths
 
   # golang
@@ -50,6 +51,7 @@ export def --env addLinuxPaths []: nothing -> nothing {
 }
 
 export def --env addMacPaths []: nothing -> nothing {
+  addUnixPaths
   addCommonPaths
 
   # Jetbrains
@@ -64,25 +66,43 @@ export def --env addMacPaths []: nothing -> nothing {
 
 export def --env addWindowsPaths []: nothing -> nothing {
   addCommonPaths
+  # load-env (fnm env --shell power-shell | lines | str replace '$env:' '' | str replace -a '"' '' | where ($it | str contains '=') | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert ($it.name | str trim) ($it.value | str trim) })
+  # $env.Path = ($env.Path | append ([$env.FNM_MULTISHELL_PATH 'bin'] | path join))
 
-  addToPath ([$env.FNM_DIR 'node-versions' 'v20.11.0' 'installation'] | path join)
+
+  # addToPath ([$env.FNM_DIR 'node-versions' 'v20.11.0' 'installation'] | path join)
 }
 
-def --env addCommonPaths []: nothing -> nothing {
+# def --env replaceFnmMultishell
+
+def --env addUnixPaths []: nothing -> nothing {
   # Users private bins
   addToPath ([$nu.home-path 'bin'] | path join)
 
   addToPath ([$nu.home-path '.local' 'bin'] | path join)
+}
 
+def --env addCommonPaths []: nothing -> nothing {
   addToPath ([$nu.home-path '.dotnet' 'tools'] | path join)
 
   let cargoPath = ([$nu.home-path '.cargo' 'bin'] | path join)
   prependToPath $cargoPath
 
-  # fnm
-  if ([$cargoPath 'fnm'] | path join | path exists) {
-    load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
-    # $env.PATH = ($env.PATH | split row (char esep) | append $"($env.FNM_MULTISHELL_PATH)/bin")
-    addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
+  addFnm $cargoPath
+}
+
+def --env addFnm [cargoPath:string]: nothing -> nothing {
+  if (isWindows) {
+    if (([$cargoPath 'fnm'] | path join | path exists) or
+      ([$cargoPath 'fnm.exe'] | path join | path exists)) {
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      addToPath ([$env.FNM_MULTISHELL_PATH] | path join)
+    }
+  } else {
+    if (([$cargoPath 'fnm'] | path join | path exists) or
+     ([$cargoPath 'fnm.exe'] | path join | path exists)) {
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
+    }
   }
 }

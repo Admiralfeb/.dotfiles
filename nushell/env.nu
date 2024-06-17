@@ -82,9 +82,6 @@ let os_name = $nu.os-info.name
 if $os_name == "macos" {
   addMacPaths
 } else if $os_name == "windows" {
-  load-env (fnm env --shell power-shell | lines | str replace '$env:' '' | str replace -a '"' '' | where ($it | str contains '=') | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert ($it.name | str trim) ($it.value | str trim) })
-  $env.Path = ($env.Path | append ([$env.FNM_MULTISHELL_PATH 'bin'] | path join))
-
   addWindowsPaths
 } else {
   addLinuxPaths

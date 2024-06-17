@@ -27,3 +27,6 @@ export def setUserVar [name: string, value: string] {
     powershell $"[Environment]::SetEnvironmentVariable\('($name)', '($value)', 'User'\)"
   }
 }
+
+def lsg [] { ls | sort-by name -i | grid -c }
+def lss [...commands: string] { ls ($commands | str join ' ') | sort-by name -i }
