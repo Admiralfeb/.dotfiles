@@ -1,6 +1,7 @@
 - name: PopOS Update
   hosts: localhost
   remote_user: admiralfeb
+  become: true
 
   tasks:
     # apt update/upgrade

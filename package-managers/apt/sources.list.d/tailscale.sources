@@ -1,0 +1,7 @@
+X-Repolib-Name: Tailscale
+Enabled: yes
+Types: deb
+URIs: https://pkgs.tailscale.com/stable/ubuntu
+Suites: jammy
+Components: main
+Signed-By: /etc/apt/keyrings/tailscale.gpg

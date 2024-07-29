@@ -118,5 +118,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+if [ -d "$HOME/.cargo/bin" ] ; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+eval "$(fnm env --use-on-cd)"
+
 complete -f -F _dotnet_bash_complete dotnet
 complete -F _fnm -o bashdefault -o default fnm

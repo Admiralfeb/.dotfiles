@@ -17,6 +17,10 @@ export def nala-upgrade [--yes (-y)] {
   }
 }
 
+export def dotfiles [] {
+  code ~/.dotfiles
+}
+
 # Windows Specific
 export def isWindows [] {
   $nu.os-info.name == 'windows'

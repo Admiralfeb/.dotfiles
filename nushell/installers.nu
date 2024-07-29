@@ -26,3 +26,14 @@ export def InstallNushell []: nothing -> nothing {
 export def InstallStarship []: nothing -> nothing {
     cargo install starship --locked
 }
+
+export def InstallTailscale []: nothing -> nothing {
+    if (isWindows) == false and (isMac) == false {
+        curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /etc/apt/keyrings/tailscale.gpg
+        sudo cp ~/.dotfiles/package-managers/apt/sources.list.d/tailscale.sources /etc/apt/sources.list.d/
+        nala-update
+        sudo nala install tailscale
+    } else {
+        echo "Machine is Mac or Windows and this will not install"
+    }
+}
