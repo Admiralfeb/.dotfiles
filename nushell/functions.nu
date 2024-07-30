@@ -21,6 +21,26 @@ export def dotfiles [] {
   code ~/.dotfiles
 }
 
+def hosts-location [] {
+  if (isWindows) {
+    "c:/Windows/System32/Drivers/etc/hosts"
+  } else {
+    "/etc/hosts"
+  }
+}
+
+export def open-hosts [] {
+  if (isWindows) {
+    powershell Start-Process -FilePath vim -ArgumentList (hosts-location) -PassThru -Verb RunAs
+  } else {
+    ^sudo vim (hosts-location)
+  }
+}
+
+export def view-hosts [] {
+  open (hosts-location)
+}
+
 # Windows Specific
 export def isWindows [] {
   $nu.os-info.name == 'windows'
