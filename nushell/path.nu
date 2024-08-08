@@ -39,6 +39,7 @@ def --env prependToPath [path: string]: nothing -> nothing {
 export def --env addLinuxPaths []: nothing -> nothing {
   addUnixPaths
   addCommonPaths
+  addDotnet
 
   # golang
   addToPath (['/usr' 'local' 'go' 'bin'] | path join)
@@ -105,4 +106,12 @@ def --env addFnm [cargoPath:string]: nothing -> nothing {
       addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
     }
   }
+}
+
+def --env addDotnet []: nothing -> nothing {
+  let dotnet_root = ([$nu.home-path '.dotnet'] | path join)
+  $env.DOTNET_ROOT = $dotnet_root
+
+  addToPath ($dotnet_root)
+  addToPath ([$dotnet_root "tools"] | path join)
 }
