@@ -96,13 +96,13 @@ def --env addFnm [cargoPath:string]: nothing -> nothing {
   if (isWindows) {
     if (([$cargoPath 'fnm'] | path join | path exists) or
       ([$cargoPath 'fnm.exe'] | path join | path exists)) {
-      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column "=" | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
       addToPath ([$env.FNM_MULTISHELL_PATH] | path join)
     }
   } else {
     if (([$cargoPath 'fnm'] | path join | path exists) or
      ([$cargoPath 'fnm.exe'] | path join | path exists)) {
-      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column "=" | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
       addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
     }
   }
