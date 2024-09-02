@@ -67,8 +67,8 @@ $env.NU_PLUGIN_DIRS = [
 
 $env.CMD_DURATION_MS = 100
 
-const WINDOWS_PATH_FILE = ~/.dotfiles/nushell/sourced-unix.nu
-const UNIX_SOURCE_FILE = ~/.dotfiles/nushell/sourced-unix.nu
+const WINDOWS_PATH_FILE = "~/.dotfiles/nushell/sourced-unix.nu"
+const UNIX_SOURCE_FILE = "~/.dotfiles/nushell/sourced-unix.nu"
 
 const PATH_FILE = if $nu.os-info.name == "windows" {
   $WINDOWS_PATH_FILE

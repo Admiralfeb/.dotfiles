@@ -39,6 +39,7 @@ def --env prependToPath [path: string]: nothing -> nothing {
 export def --env addLinuxPaths []: nothing -> nothing {
   addUnixPaths
   addCommonPaths
+  addDotnet
 
   # golang
   addToPath (['/usr' 'local' 'go' 'bin'] | path join)
@@ -95,14 +96,22 @@ def --env addFnm [cargoPath:string]: nothing -> nothing {
   if (isWindows) {
     if (([$cargoPath 'fnm'] | path join | path exists) or
       ([$cargoPath 'fnm.exe'] | path join | path exists)) {
-      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column "=" | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
       addToPath ([$env.FNM_MULTISHELL_PATH] | path join)
     }
   } else {
     if (([$cargoPath 'fnm'] | path join | path exists) or
      ([$cargoPath 'fnm.exe'] | path join | path exists)) {
-      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
+      load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column "=" | rename name value | where name != "FNM_ARCH" and name != "PATH" | where ($it.name | str starts-with FNM) | reduce -f {} {|it, acc| $acc | upsert $it.name ($it.value | str replace --all '\\' '\') })
       addToPath ([$env.FNM_MULTISHELL_PATH bin] | path join)
     }
   }
+}
+
+def --env addDotnet []: nothing -> nothing {
+  let dotnet_root = ([$nu.home-path '.dotnet'] | path join)
+  $env.DOTNET_ROOT = $dotnet_root
+
+  addToPath ($dotnet_root)
+  addToPath ([$dotnet_root "tools"] | path join)
 }

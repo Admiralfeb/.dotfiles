@@ -35,9 +35,9 @@ def --env addPaths []: nothing -> nothing {
 
     addToPath (['/usr' 'local' 'games'] | path join)
 
-    addToPath ([])
+    # addToPath ([])
 
 
 }
 
-addPaths
+# addPaths
