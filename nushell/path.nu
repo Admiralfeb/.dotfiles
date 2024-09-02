@@ -3,35 +3,35 @@
 use std log
 
 def --env addToPath [path: string]: nothing -> nothing {
-  if ($path | path exists) == false {
-    log info $"($path) does not exist. Not adding."
-    return
-  }
+  # if ($path | path exists) == false {
+  #   log info $"($path) does not exist. Not adding."
+  #   return
+  # }
 
   if (isWindows) {
     if ($path not-in $env.Path) {
-      log info $"($path) path being added for Windows"
+      # log info $"($path) path being added for Windows"
       $env.Path = ($env.Path | split row (char esep) | append $path)
     }
   } else if ($path not-in $env.PATH) {
-    log info $"($path) path being added for mac/linux"
+    # log info $"($path) path being added for mac/linux"
     $env.PATH = ($env.PATH | split row (char esep) | append $path)
   }
 }
 
 def --env prependToPath [path: string]: nothing -> nothing {
-  if ($path | path exists) == false {
-    log info $"($path) does not exist. Not adding."
-    return
-  }
+  # if ($path | path exists) == false {
+  #   log info $"($path) does not exist. Not adding."
+  #   return
+  # }
 
   if (isWindows) {
     if ($path not-in $env.Path) {
-      log info $"($path) path being added for Windows"
+      # log info $"($path) path being added for Windows"
       $env.Path = ($env.Path | split row (char esep) | prepend $path)
     }
   } else if ($path not-in $env.PATH) {
-    log info $"($path) path being added for mac/linux"
+    # log info $"($path) path being added for mac/linux"
     $env.PATH = ($env.PATH | split row (char esep) | prepend $path)
   }
 }
