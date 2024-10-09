@@ -4,4 +4,72 @@
 [safe]
 	directory = /opt/edmc
 [alias]
-	stat=status
+	stat = status
+	b = branch
+	co = checkout
+	c = commit
+	m = merge
+	ap = add --patch
+	s = status
+	l = log
+	a = add
+	ps = push
+	pl = pull
+	ignore = !sh -c 'echo "$1" >> .gitignore' -
+	sdiff = !git diff && git submodule foreach 'git diff'
+	spush = push --recurse-submodules=on-demand
+	supdate = submodule update --remote --merge
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+	autocrlf = input
+[init]
+	defaultBranch = main
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[diff]
+	tool = bc3
+	submodule = log
+[merge]
+	tool = bc3
+[mergetool "bc3"]
+	trustExitCode = true
+[url "git@github.com:github"]
+
+	insteadOf = "https://github.com/github"
+	insteadOf = "github:github"
+	insteadOf = "git://github.com/github"
+
+[url "git@github.com:"]
+
+	pushInsteadOf = "https://github.com/"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+
+	insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+
+	insteadOf = "gist:"
+[push]
+	recurseSubmodules = on-demand
+[status]
+	submodulesummary = 1
+[submodule]
+	recurse = true
+[pull]
+	rebase = false
+[safe]
+	directory = /opt/edmc
