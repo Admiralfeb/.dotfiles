@@ -3,3 +3,5 @@
 	email = austyn@admiralfeb.dev
 [safe]
 	directory = /opt/edmc
+[alias]
+	stat=status

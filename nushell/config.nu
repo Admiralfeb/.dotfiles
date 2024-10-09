@@ -396,12 +396,17 @@ $env.config = {
       completer: $external_completer # check 'carapace_completer' above as an example
     }
   }
+  display_errors: {
+    exit_code: false
+    # Core dump errors are always printed, and SIGPIPE never triggers an error.
+    # The setting below controls message printing for termination by all other signals.
+    termination_signal: true
+}
   filesize: {
     metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
     format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
   color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
-  use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
   float_precision: 2
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
